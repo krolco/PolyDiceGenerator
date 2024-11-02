@@ -670,13 +670,13 @@ module drawd4c(){
         //render pips
         regular_polyhedron("cube",side=d4c_size,anchor=BOTTOM,draw=false)
         zrot(d4c_rotate[$faceindex]+base_rotate[$faceindex])
-        drwapips("d4c",d4c_pips[$faceindex],d4c_adj_depth[$faceindex],d4c_pip_fn);
+        drawpips("d4c",d4c_pips[$faceindex],d4c_adj_depth[$faceindex],d4c_pip_fn);
         
         //render pip symbols
         d4c_pip_symbols=fix_quotes(d4c_pip_symbols);
         regular_polyhedron("cube",side=d4c_size,anchor=BOTTOM,draw=false)
         zrot(d4c_rotate[$faceindex]+base_rotate[$faceindex])
-        drwapipsymbols("d4c",d4c_pip_symbol_pos[$faceindex],d4c_pip_symbols[$faceindex],d4c_pip_symbol_rotate[$faceindex],d4c_adj_depth[$faceindex]);
+        drawpipsymbols("d4c",d4c_pip_symbol_pos[$faceindex],d4c_pip_symbols[$faceindex],d4c_pip_symbol_rotate[$faceindex],d4c_adj_depth[$faceindex]);
     }
 }
 
@@ -738,13 +738,13 @@ module drawd4i(){
         //render pips
         regular_polyhedron("cube",side=d4i_size,anchor=BOTTOM,draw=false)
         zrot(d4i_rotate[$faceindex]+base_rotate[$faceindex])
-        drwapips("d4i",d4i_pips[$faceindex],d4i_adj_depth[$faceindex],d4i_pip_fn);
+        drawpips("d4i",d4i_pips[$faceindex],d4i_adj_depth[$faceindex],d4i_pip_fn);
         
         //render pip symbols
         d4i_pip_symbols=fix_quotes(d4i_pip_symbols);
         regular_polyhedron("cube",side=d4i_size,anchor=BOTTOM,draw=false)
         zrot(d4i_rotate[$faceindex]+base_rotate[$faceindex])
-        drwapipsymbols("d4i",d4i_pip_symbol_pos[$faceindex],d4i_pip_symbols[$faceindex],d4i_pip_symbol_rotate[$faceindex],d4i_adj_depth[$faceindex]);
+        drawpipsymbols("d4i",d4i_pip_symbol_pos[$faceindex],d4i_pip_symbols[$faceindex],d4i_pip_symbol_rotate[$faceindex],d4i_adj_depth[$faceindex]);
     }
 }
 
@@ -900,13 +900,13 @@ module drawd6(){
         //render pips
         regular_polyhedron("cube",side=d6_size,anchor=BOTTOM,draw=false)
         zrot(d6_rotate[$faceindex]+base_rotate[$faceindex])
-        drwapips("d6",d6_pips[$faceindex],d6_adj_depth[$faceindex],d6_pip_fn);
+        drawpips("d6",d6_pips[$faceindex],d6_adj_depth[$faceindex],d6_pip_fn);
         
         //render pip symbols
         d6_pip_symbols=fix_quotes(d6_pip_symbols);
         regular_polyhedron("cube",side=d6_size,anchor=BOTTOM,draw=false)
         zrot(d6_rotate[$faceindex]+base_rotate[$faceindex])
-        drwapipsymbols("d6",d6_pip_symbol_pos[$faceindex],d6_pip_symbols[$faceindex],d6_pip_symbol_rotate[$faceindex],d6_adj_depth[$faceindex]);
+        drawpipsymbols("d6",d6_pip_symbol_pos[$faceindex],d6_pip_symbols[$faceindex],d6_pip_symbol_rotate[$faceindex],d6_adj_depth[$faceindex]);
     }
 }
 
@@ -1370,7 +1370,7 @@ module drawd20(){
     }
 }
 
-module drwapips(die,num,adj_depth,pip_fn){
+module drawpips(die,num,adj_depth,pip_fn){
     pip_mult=die=="d4c" ? d4c_pip_size*d4c_size/100 : die=="d4i" ? d4i_pip_size*d4i_size/100 : d6_pip_size*d6_size/100;
     pipr=pip_mult/2;
     pip_offset=die=="d4c" ? d4c_pip_offset : die=="d4i" ? d4i_pip_offset : d6_pip_offset;
@@ -1385,22 +1385,22 @@ module drwapips(die,num,adj_depth,pip_fn){
         down(text_depth+adj_depth) cylinder(r=pipr,h=2*text_depth+adj_depth,$fn=pip_fn);
     }
     if(num=="3"){
-        drwapips(die,"1",adj_depth,pip_fn);
-        drwapips(die,"2",adj_depth,pip_fn);
+        drawpips(die,"1",adj_depth,pip_fn);
+        drawpips(die,"2",adj_depth,pip_fn);
     }
     if(num=="4"){
-        drwapips(die,"2",adj_depth,pip_fn);
+        drawpips(die,"2",adj_depth,pip_fn);
         translate([pipr*pip_offset,pipr*pip_offset,0])
         down(text_depth+adj_depth) cylinder(r=pipr,h=2*text_depth+adj_depth,$fn=pip_fn);
         translate([-pipr*pip_offset,-pipr*pip_offset,0])
         down(text_depth+adj_depth) cylinder(r=pipr,h=2*text_depth+adj_depth,$fn=pip_fn);
     }
     if(num=="5" && die=="d6"){
-        drwapips(die,"1",adj_depth,pip_fn);
-        drwapips(die,"4",adj_depth,pip_fn);
+        drawpips(die,"1",adj_depth,pip_fn);
+        drawpips(die,"4",adj_depth,pip_fn);
     }
     if(num=="6" && die=="d6"){
-        drwapips(die,"4",adj_depth,pip_fn);
+        drawpips(die,"4",adj_depth,pip_fn);
         translate([pipr*pip_offset,0,0])
         down(text_depth+adj_depth) cylinder(r=pipr,h=2*text_depth+adj_depth,$fn=pip_fn);
         translate([-pipr*pip_offset,0,0])
@@ -1408,7 +1408,7 @@ module drwapips(die,num,adj_depth,pip_fn){
     }
 }
 
-module drwapipsymbols(die,num,pipsymbol,rot,adj_depth){
+module drawpipsymbols(die,num,pipsymbol,rot,adj_depth){
     pip_mult=die=="d4c" ? d4c_pip_size*d4c_size/100 : die=="d4i" ? d4i_pip_size*d4i_size/100 : d6_pip_size*d6_size/100;
     sym_stroke=symbol_stroke*pip_mult;
     pipr=pip_mult/2;
@@ -1430,11 +1430,11 @@ module drwapipsymbols(die,num,pipsymbol,rot,adj_depth){
         text(pipsymbol,size=pip_mult,font=sym_font,halign="center",valign="center");
     }
     if(num=="3"){
-        drwapipsymbols(die,"1",pipsymbol,rot,adj_depth);
-        drwapipsymbols(die,"2",pipsymbol,rot,adj_depth);
+        drawpipsymbols(die,"1",pipsymbol,rot,adj_depth);
+        drawpipsymbols(die,"2",pipsymbol,rot,adj_depth);
     }
     if(num=="4"){
-        drwapipsymbols(die,"2",pipsymbol,rot,adj_depth);
+        drawpipsymbols(die,"2",pipsymbol,rot,adj_depth);
         translate([pipr*pip_offset,pipr*pip_offset,0])
         zrot(rot) down(text_depth+adj_depth) linear_extrude(height=2*text_depth+adj_depth)
         offset(delta=sym_stroke)
@@ -1445,11 +1445,11 @@ module drwapipsymbols(die,num,pipsymbol,rot,adj_depth){
         text(pipsymbol,size=pip_mult,font=sym_font,halign="center",valign="center");
     }
     if(num=="5" && die=="d6"){
-        drwapipsymbols(die,"1",pipsymbol,rot,adj_depth);
-        drwapipsymbols(die,"4",pipsymbol,rot,adj_depth);
+        drawpipsymbols(die,"1",pipsymbol,rot,adj_depth);
+        drawpipsymbols(die,"4",pipsymbol,rot,adj_depth);
     }
     if(num=="6" && die=="d6"){
-        drwapipsymbols(die,"4",pipsymbol,rot,adj_depth);
+        drawpipsymbols(die,"4",pipsymbol,rot,adj_depth);
         translate([pipr*pip_offset,0,0])
         zrot(rot) down(text_depth+adj_depth) linear_extrude(height=2*text_depth+adj_depth)
         offset(delta=sym_stroke)
